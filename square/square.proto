@@ -1,0 +1,21 @@
+//protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative square/square.proto
+
+syntax = "proto3";
+
+option go_package = "github.com/baskarangappan/bits-wilp-s1/square";
+package square;
+
+message SquareRequest {
+  // Value for which a square has to be calculated
+  int64 value = 1;
+}
+
+message SquareResponse {
+  // Square value of the requested value
+  int64 result = 1;
+}
+
+service Square{
+  // RPC call to send a square request and get the response in return
+  rpc CalculateSquare (SquareRequest) returns (SquareResponse) {}
+}

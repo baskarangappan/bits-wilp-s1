@@ -1,0 +1,7 @@
+.idea
+.vscode
+.code
+*.bkp
+*.orig
+*.DS_Store
+
