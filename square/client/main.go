@@ -19,7 +19,6 @@ package main
 import (
 	"bufio"
 	"context"
-	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -35,11 +34,7 @@ const (
 	defaultName = "world"
 )
 
-var (
-	// Replace localhost with IP of the server, if server running from a different machine
-	addr = flag.String("addr", "localhost:50051", "the address to connect to")
-)
-
+var addr = ""
 var reader *bufio.Reader
 
 func getString() string {
@@ -59,9 +54,18 @@ func readString(s string) string {
 
 func main() {
 	reader = bufio.NewReader(os.Stdin)
-	flag.Parse()
+	// If user provided both IP address and port number
+	if len(os.Args[1:]) > 2 {
+		addr = os.Args[1] + os.Args[2]
+	} else if len(os.Args[1:]) > 1 {
+		// If user provided only IP address, assume the port number as 50051
+		addr = os.Args[1] + ":50051"
+	} else {
+		// If user didn't provide IP address and/or port number, assume localhost:50051
+		addr = "localhost:50051"
+	}
 	// Set up a connection to the server.
-	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -76,5 +80,5 @@ func main() {
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
-	log.Printf("Greeting: %s", r.GetResult())
+	log.Printf("The square of %s is: %s", val, r.GetResult())
 }
