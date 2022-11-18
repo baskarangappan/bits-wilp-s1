@@ -1,4 +1,21 @@
-//protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative square/square.proto
+/*
+  Copyright 2022 Baskar Angappan
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+// from the parent square directory, execute the below command to generate *pb.go files
+// protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative square/square.proto
 
 syntax = "proto3";
 
@@ -7,12 +24,12 @@ package square;
 
 message SquareRequest {
   // Value for which a square has to be calculated
-  int64 value = 1;
+  string value = 1;
 }
 
 message SquareResponse {
   // Square value of the requested value
-  int64 result = 1;
+  string result = 1;
 }
 
 service Square{
