@@ -1,26 +1,35 @@
-# How to use this module?
+# Distributed Computing - Assignment 1 - Use RPC to calculate squares
+***
+## How to use this module?
 To test this module, run the following command in a server machine.
 
-To start the server
+## To generate the client and server proto files
+```shell
+root:~/bits-wilp-s1# cd square
+protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative square/square.proto
+```
+This would generate the `square.pb.go` and `square_grpc.pb.go` files
 
+## To start the server
+```shell
 go run server/main.go
+```
 
-To start a client to connect with server
-
+## To start a client to connect with server
+```shell
 go run client/main.go <Optional: IP Address> <Optional: Port Number>
-
+```
 Here IP address and/or Port number are optional. If port number is not provided, program will assume 50051 as the port number. And if IP address is not provided, then the program will assume localhost
 
-Test details:
-
-On the server:
+## Test details:
+### On the server:
 ```shell
 root:~/bits-wilp-s1/square# go run server/main.go 
 2022/11/18 03:59:37 server listening at [::]:50051
 2022/11/18 04:00:51 Received: 11
 2022/11/18 04:01:00 Received: 123456789123456789
 ```
-On the client:
+### On the client:
 ```shell
 root:~/bits-wilp-s1/square# go run client/main.go 172.44.0.19 50051
 Enter a number to be squared
